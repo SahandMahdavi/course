@@ -15,12 +15,36 @@ import NewProductData from './data/NewProductData';
 import {Parse} from 'parse/react-native';
 import Colors from '../constants/AppColors';
 
+// npm install parse --save
+
 export default class Home extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       data: [],
+      FlatListItems: [
+        {
+          image: 'https://radiokimiya.com/wp-content/uploads/2020/06/gold-gathering-300x170.png',
+          title: 'پیراهن آستین کوتاه',
+          price: '100.000 تومان',
+        },
+        {
+          image: 'https://images.eu.christianlouboutin.com/media/catalog/product/cache/2/thumbnail/1200x/602f0fa2c1f0d1ba5e241f914e856ff9/1/1/5/0/christianlouboutin-privatenumber-1150688_PK1A_1_1200x1200_1563531078.jpg',
+          title: 'پیراهن آستین کوتاه',
+          price: '100.000 تومان',
+        },
+        {
+          image: 'https://cdn.childsplayclothing.co.uk/media/catalog/product/cache/1/image/1200x/9df78eab33525d08d6e5fb8d27136e95/b/u/burberry_99651_1.jpg',
+          title: 'پیراهن آستین کوتاه',
+          price: '100.000 تومان',
+        },
+        {
+          image: 'https://images.eu.christianlouboutin.com/media/catalog/product/cache/2/thumbnail/1200x/602f0fa2c1f0d1ba5e241f914e856ff9/1/1/5/0/christianlouboutin-privatenumber-1150688_PK1A_1_1200x1200_1563531078.jpg',
+          title: 'پیراهن آستین کوتاه',
+          price: '100.000 تومان',
+        },
+      ],
     };
   }
 
@@ -34,7 +58,6 @@ export default class Home extends Component {
       headers: {
         'X-Parse-Application-Id': 'tRAzuwYGenZLCp5xWxPhNQBtXqIwyRQX5jkygeo6',
         'X-Parse-REST-API-Key': 'ZLpDXRc2yCUAfbFZRnARrtYoiqOOiKbhOOoUf9pi',
-        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     }).then((response) => response.json())
@@ -59,13 +82,14 @@ export default class Home extends Component {
   renderNewProductItem(items) {
     return <NewProductData
       navigation={this.props.navigation}
-      image={items.image.url}
+      image={items.image}
       title={items.title}
       price={items.price}/>;
   }
 
   render() {
     const {data} = this.state;
+    const {FlatListStaticDta} = this.state;
     return (
       <View style={rootStyle._home.container}>
         <View>
@@ -82,11 +106,12 @@ export default class Home extends Component {
             </View>
             <View>
               <FlatList
-                data={data}
+                style={rootStyle._home.flatList}
+                data={this.state.FlatListItems}
                 horizontal={true}
                 maxToRenderPerBatch={2}
                 renderItem={({item}) => this.renderNewProductItem(item)}
-                keyExtractor={(item, index) => index}/>
+                keyExtractor={(item, index) => index.toString()}/>
             </View>
 
             <View>
@@ -94,22 +119,32 @@ export default class Home extends Component {
             </View>
 
             <View>
-              <View style={rootStyle._home.categoryRow}>
+              <View style={rootStyle._home.topCategoryRow}>
                 <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                  onPress={() => this.props.navigation.navigate('CategoryDetails',
+                    {
+                      item: {
+                        title: 'پیراهن مردانه',
+                      },
+                    },
+                  )}
                   activeOpacity={0.95}
                   style={rootStyle._home.categoryContainer}>
                   <View style={rootStyle._home.categoryContent}>
                     <Image
-
                       source={require('../constants/images/shirt.png')}/>
                     <Text style={rootStyle._home.categoryText}>{Strings.menShirt}</Text>
                   </View>
                 </TouchableOpacity>
 
-
                 <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                  onPress={() => this.props.navigation.navigate('CategoryDetails',
+                    {
+                      item: {
+                        title: 'کفش زنانه',
+                      },
+                    },
+                  )}
                   activeOpacity={0.95}
                   style={rootStyle._home.categoryContainer}>
                   <View style={rootStyle._home.categoryContent}>
@@ -121,9 +156,15 @@ export default class Home extends Component {
                 </TouchableOpacity>
               </View>
 
-              <View style={rootStyle._home.categoryRow}>
+              <View style={rootStyle._home.bottomCategoryRow}>
                 <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                  onPress={() => this.props.navigation.navigate('CategoryDetails',
+                    {
+                      item: {
+                        title: 'کت و شلوار',
+                      },
+                    },
+                  )}
                   activeOpacity={0.95}
                   style={rootStyle._home.categoryContainer}>
                   <View style={rootStyle._home.categoryContent}>
@@ -133,9 +174,14 @@ export default class Home extends Component {
                   </View>
                 </TouchableOpacity>
 
-
                 <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                  onPress={() => this.props.navigation.navigate('CategoryDetails',
+                    {
+                      item: {
+                        title: 'کت و دامن',
+                      },
+                    },
+                  )}
                   activeOpacity={0.95}
                   style={rootStyle._home.categoryContainer}>
                   <View style={rootStyle._home.categoryContent}>

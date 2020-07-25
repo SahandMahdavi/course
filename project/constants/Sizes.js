@@ -1,5 +1,6 @@
 export default {
     // Text Sizes
+    textSizeTwelve: 12,
     textSizeFourteen: 14,
     textSizeDefault: 16,
     textSizeEighteen: 18,

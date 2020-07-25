@@ -18,13 +18,22 @@ import Register from './Login/Register';
 import ForgotPassword from './Login/ForgotPassword';
 import Main from './main/Main';
 
+// const Parse = require('parse/react-native');
+// // const {AsyncStorage} = require('react-native');
+// // Parse.setAsyncStorage(AsyncStorage);
+// Parse.serverURL = 'https://class-react.back4app.io';
+// Parse.initialize(
+//     'tRAzuwYGenZLCp5xWxPhNQBtXqIwyRQX5jkygeo6',
+//     'HA937XK05Nj28PNUYP1IMN7SHzDnVuXgxlCeV4Q9',
+// );
+
 const Parse = require('parse/react-native');
-const AsyncStorage = require('@react-native-community/async-storage');
+const {AsyncStorage} = require('react-native');
 Parse.setAsyncStorage(AsyncStorage);
-Parse.serverURL = 'https://class-react.back4app.io/';
+Parse.serverURL = 'https://learnoos123.back4app.io';
 Parse.initialize(
-    'tRAzuwYGenZLCp5xWxPhNQBtXqIwyRQX5jkygeo6',
-    'HA937XK05Nj28PNUYP1IMN7SHzDnVuXgxlCeV4Q9',
+  '7WIfgHtqiKMkkMekN76zkLxeAicKYSHNXnWxvDfg',
+  'eYOAA3r5or66360CXGZAX2dRVlZSIwzvaiJOk2RN',
 );
 
 EStyleSheet.build();

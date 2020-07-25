@@ -2,6 +2,7 @@ export default {
     fontFamily: 'IRANSansMobile',
     storeName: 'خرید آنلاین پوشاک',
     home: 'خانه',
+    ProductDetails: 'لغو',
     profile: 'پروفایل',
     shoppingList: 'کالاهای خریداری شده',
     newProduct: 'جدیدترین کالاها',
@@ -13,4 +14,5 @@ export default {
     editProfile: 'ویرایش پروفایل',
     sendSupport: 'ارسال نظر',
     cancel: 'لغو',
+    shop: 'خرید',
 };

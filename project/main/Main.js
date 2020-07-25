@@ -5,7 +5,7 @@ import {
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 import ProfileStack from '../profile/ProfileStack';
-import Home from '../home/Home';
+import HomeStack from '../home/HomeStack';
 import Strings from '../constants/Strings';
 import AppColors from '../constants/AppColors';
 
@@ -25,7 +25,7 @@ const bottomNavigation = createBottomTabNavigator(
             },
         },
         Home: {
-            screen: Home,
+            screen: HomeStack,
             navigationOptions: {
                 title: 'خانه',
                 headerTitleStyle: {

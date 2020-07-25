@@ -8,77 +8,40 @@ import {
 import Colors from '../../constants/AppColors';
 import Sizes from '../../constants/Sizes';
 import Strings from '../../constants/Strings';
+import rootStyle from '../../constants/styles/rootStyle';
 
 export default class NewProductData extends Component {
     render() {
         const { image, title, price } = this.props;
         const { navigate } = this.props.navigation;
         return (
-            <View style={{
-                flex: 1,
-                borderRadius: 8,
-                elevation: 5,
-                shadowColor: Colors.shadowColor,
-                shadowOffset: { width: 0, height: 1 },
-                shadowOpacity: 0.01,
-                overflow: 'hidden',
-            }}>
+            <View style={rootStyle._newProductDetails.container}>
                 <View
-                    style={{
-                        marginTop: 8,
-                        alignItems: 'center',
-                    }}>
+                    style={rootStyle._newProductDetails.imageContainer}>
                     <Image
-                        source={{ uri: image }} />
+                        source={{uri: 'https://radiokimiya.com/wp-content/uploads/2020/06/gold-gathering-300x170.png'}} />
                 </View>
 
                 <View>
                     <Text
-                        style={{
-                            fontSize: Sizes.textSizeFourteen,
-                            fontFamily: Strings.fontFamily,
-                            color: AppColors.darkGrey,
-                            textAlign: 'right',
-                            marginTop: Sizes.marginEight,
-                            marginRight: Sizes.marginEight,
-                        }}>{title}</Text>
+                        style={rootStyle._newProductDetails.titleText}>{title}</Text>
                 </View>
                 <View>
                     <Text
-                        style={{
-                            fontSize: Sizes.textSizeFourteen,
-                            fontFamily: Strings.fontFamily,
-                            color: Colors.lightGrey,
-                            textAlign: 'right',
-                            marginTop: Sizes.marginEight,
-                            marginRight: Sizes.marginEight,
-                        }}>{price}</Text>
+                        style={rootStyle._newProductDetails.priceText}>{price}</Text>
                 </View>
                 <View>
                     <TouchableOpacity
-                        style={{
-                            textAlign: 'center',
-                            marginTop: Sizes.marginDefault,
-                            backgroundColor: Colors.blueColor,
-                            color: Colors.whiteColor,
-                            marginRight: 16,
-                            marginLeft: 16,
-                            borderRadius: 8,
-                            padding: 10,
-                            fontSize: Sizes.textSizeEighteen,
-                            elevation: 3,
-                            shadowColor: Colors.shadowColor,
-                            shadowOffset: { width: 0, height: 1 },
-                            shadowOpacity: 0.01,
-                            overflow: 'hidden',
-                            fontFamily: Strings.fontFamily
-                        }}
+                        onPress={ () => navigate('ProductDetails',
+                          {
+                            item: {
+                              image, title, price,
+                            },
+                          }
+                          )}
+                        style={rootStyle._newProductDetails.detailsButton}
                         activeOpacity={0.7}>
-                        <Text style={{
-                             fontSize: Sizes.textSizeDefault,
-                             fontFamily: Strings.fontFamily,
-                             color: Colors.whiteColor,
-                        }}>مشاهده جزئیات</Text>
+                        <Text style={rootStyle._newProductDetails.detailsButtonText}>مشاهده جزئیات</Text>
                     </TouchableOpacity>
                 </View>
             </View>

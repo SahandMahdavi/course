@@ -5,10 +5,10 @@ import {
   Image,
   View,
 } from 'react-native';
-
 import rootStyle from '../constants/styles/rootStyle';
 import Strings from '../constants/Strings';
-import {Parse} from 'parse/react-native';
+import Parse from 'parse/react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Splash extends Component {
 
@@ -17,18 +17,24 @@ export default class Splash extends Component {
   };
 
   componentDidMount() {
+    const userId = AsyncStorage.getItem('userId');
     setTimeout(() => {
       // Parse.User.currentAsync().then(user => {
-      //   console.log('============User', user);
+      //   console.log('=====User', user);
       //   if (user !== null) {
       //     this.props.navigation.replace('Main');
       //   } else {
       //     this.props.navigation.replace('Login');
       //   }
       // });
-        this.props.navigation.replace('Main');
+
+        if (userId !== '') {
+          this.props.navigation.replace('Login');
+        } else {
+          this.props.navigation.replace('Login');
+        }
     }, 3000);
-  }
+  };
 
   render() {
     return (

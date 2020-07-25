@@ -185,7 +185,7 @@ const rootStyles = EstyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: AppColors.whiteColor,
-      paddingBottom: Sizes.paddingDefault,
+
     },
     newProductText: {
       fontSize: Sizes.textSizeDefault,
@@ -195,8 +195,18 @@ const rootStyles = EstyleSheet.create({
       marginTop: Sizes.marginDefault,
       marginRight: Sizes.marginDefault,
     },
-    categoryRow: {
-      marginTop: 16,
+    flatList: {
+      paddingLeft: Sizes.paddingEight,
+    },
+    topCategoryRow: {
+      marginTop: Sizes.marginDefault,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    bottomCategoryRow: {
+      marginTop: Sizes.marginDefault,
+      marginBottom: Sizes.marginDefault,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
@@ -224,6 +234,203 @@ const rootStyles = EstyleSheet.create({
       textAlign: 'center',
       marginTop: Sizes.marginEight,
     },
+  },
+  _newProductDetails:{
+    container: {
+      backgroundColor: Colors.whiteColor,
+      borderColor: Colors.whiteColor,
+      borderWidth: 1,
+      borderRadius: 8,
+      elevation: 3,
+      shadowColor: Colors.shadowColor,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.01,
+      overflow: 'hidden',
+      marginTop: Sizes.marginDefault,
+      marginBottom: Sizes.marginEight,
+      marginRight: Sizes.marginDefault,
+      marginLeft: Sizes.marginEight,
+    },
+    imageContainer: {
+      flex: 1,
+      marginTop: 8,
+      alignItems: 'center',
+    },
+    titleText: {
+      fontSize: Sizes.textSizeFourteen,
+      fontFamily: Strings.fontFamily,
+      color: Colors.darkGrey,
+      textAlign: 'right',
+      marginTop: Sizes.marginDefault,
+      marginRight: Sizes.marginDefault,
+      marginLeft: Sizes.marginDefault,
+    },
+    priceText: {
+      fontSize: Sizes.textSizeFourteen,
+      fontFamily: Strings.fontFamily,
+      color: Colors.lightGrey,
+      textAlign: 'right',
+      marginTop: Sizes.marginEight,
+      marginRight: Sizes.marginDefault,
+      marginLeft: Sizes.marginDefault,
+    },
+    detailsButton: {
+      textAlign: 'center',
+      backgroundColor: Colors.blueColor,
+      marginTop: Sizes.marginDefault,
+      marginRight: Sizes.marginDefault,
+      marginBottom: Sizes.marginEight,
+      marginLeft: Sizes.marginDefault,
+      borderRadius: 8,
+      padding: 10,
+      fontSize: Sizes.textSizeEighteen,
+      elevation: 3,
+      shadowColor: Colors.shadowColor,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.01,
+      overflow: 'hidden',
+      fontFamily: Strings.fontFamily
+    },
+    detailsButtonText: {
+      fontSize: Sizes.textSizeTwelve,
+      fontFamily: Strings.fontFamily,
+      color: Colors.whiteColor,
+      textAlign: 'center',
+    }
+  },
+  _productDetails: {
+    container: {
+      flex: 1,
+      backgroundColor: Colors.whiteColor,
+    },
+    headerTitle: {
+      fontSize: Sizes.textSizeDefault,
+      fontFamily: Strings.fontFamily,
+      color: AppColors.darkGrey,
+    },
+    header: {
+      backgroundColor: Colors.whiteColor,
+      borderBottomColor: Colors.whiteColor,
+      elevation: 5,
+      shadowColor: Colors.shadowColor,
+      shadowOffset: {width: 0, height: 1},
+      shadowOpacity: 0.01,
+      overflow: 'hidden',
+    },
+    backIcon: {
+      tintColor: Colors.darkGrey
+    },
+    detailsContainer: {
+      backgroundColor: Colors.whiteColor,
+      marginTop: Sizes.marginDefault,
+      marginBottom: Sizes.marginDefault,
+      marginRight: Sizes.marginDefault,
+      marginLeft: Sizes.marginDefault,
+      elevation: 3,
+      shadowColor: Colors.shadowColor,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.01,
+      overflow: 'hidden',
+      borderRadius: 8,
+    },
+    imageContainer: {
+      marginTop: Sizes.marginEight,
+      marginRight: Sizes.marginEight,
+      marginLeft: Sizes.marginEight,
+      alignItems: 'center',
+      backgroundColor: 'red'
+    },
+    titleText: {
+      fontSize: Sizes.textSizeFourteen,
+      fontFamily: Strings.fontFamily,
+      color: Colors.darkGrey,
+      textAlign: 'right',
+      marginTop: Sizes.marginDefault,
+      marginRight: Sizes.marginDefault,
+      marginLeft: Sizes.marginDefault,
+    },
+    priceText: {
+      fontSize: Sizes.textSizeFourteen,
+      fontFamily: Strings.fontFamily,
+      color: Colors.lightGrey,
+      textAlign: 'right',
+      marginTop: Sizes.marginEight,
+      marginRight: Sizes.marginDefault,
+      marginLeft: Sizes.marginDefault,
+    },
+    detailsButton: {
+      textAlign: 'center',
+      backgroundColor: Colors.blueColor,
+      marginTop: Sizes.marginDefault,
+      marginRight: Sizes.marginDefault,
+      marginBottom: Sizes.marginEight,
+      marginLeft: Sizes.marginDefault,
+      borderRadius: 8,
+      padding: 10,
+      fontSize: Sizes.textSizeEighteen,
+      elevation: 3,
+      shadowColor: Colors.shadowColor,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.01,
+      overflow: 'hidden',
+      fontFamily: Strings.fontFamily
+    },
+    detailsButtonText: {
+      fontSize: Sizes.textSizeTwelve,
+      fontFamily: Strings.fontFamily,
+      color: Colors.whiteColor,
+      textAlign: 'center',
+    }
+  },
+  _categoryDetails: {
+    container: {
+      flex: 1,
+      backgroundColor: Colors.whiteColor,
+    },
+    headerTitle: {
+      fontSize: Sizes.textSizeDefault,
+      fontFamily: Strings.fontFamily,
+      color: AppColors.darkGrey,
+    },
+    header: {
+      backgroundColor: Colors.whiteColor,
+      borderBottomColor: Colors.whiteColor,
+      elevation: 5,
+      shadowColor: Colors.shadowColor,
+      shadowOffset: {width: 0, height: 1},
+      shadowOpacity: 0.01,
+      overflow: 'hidden',
+    },
+    searchContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: Colors.whiteColor,
+      borderWidth:1,
+      borderColor: Colors.lightGrey,
+      borderRadius: 8,
+      marginTop: Sizes.marginThirtyTwo,
+      marginRight: Sizes.marginDefault,
+      marginLeft: Sizes.marginDefault,
+      paddingRight: 10,
+    },
+    searchIcon: {
+      paddingRight: 10,
+      paddingLeft: 10,
+    },
+    inputText: {
+      flex: 1,
+      paddingTop: 10,
+      paddingRight: 10,
+      paddingBottom: 10,
+      paddingLeft: 0,
+      color: Colors.darkGrey,
+      fontFamily: Strings.fontFamily,
+      textAlign: 'right',
+    },
+    backIcon: {
+      tintColor: Colors.darkGrey
+    }
   },
   _profile: {
     headerTitle: {
@@ -367,7 +574,7 @@ const rootStyles = EstyleSheet.create({
     backIcon: {
       tintColor: Colors.darkGrey
     }
-  }
+  },
 });
 
 export default rootStyles;
