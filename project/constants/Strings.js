@@ -1,0 +1,16 @@
+export default {
+    fontFamily: 'IRANSansMobile',
+    storeName: 'خرید آنلاین پوشاک',
+    home: 'خانه',
+    profile: 'پروفایل',
+    shoppingList: 'کالاهای خریداری شده',
+    newProduct: 'جدیدترین کالاها',
+    category: 'دسته بندی',
+    menShirt: 'پیراهن مردانه',
+    womenShoes: 'کفش زنانه',
+    menSuit: 'کت و شلوار',
+    womenSuit: 'کت و دامن',
+    editProfile: 'ویرایش پروفایل',
+    sendSupport: 'ارسال نظر',
+    cancel: 'لغو',
+};
