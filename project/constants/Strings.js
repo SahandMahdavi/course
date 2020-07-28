@@ -1,5 +1,6 @@
 export default {
     fontFamily: 'IRANSansMobile',
+    noInternetConnection: 'شما به اینترنت متصل نیستید!!!',
     storeName: 'خرید آنلاین پوشاک',
     home: 'خانه',
     ProductDetails: 'لغو',

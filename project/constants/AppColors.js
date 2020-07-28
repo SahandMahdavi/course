@@ -7,4 +7,5 @@ export default {
     shadowColor: '#c4c4c4',
     blueColor: '#6886C5',
     pink: '#FFACB7',
+    redNotice: '#ff6f28',
 };

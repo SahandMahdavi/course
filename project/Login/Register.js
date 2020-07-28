@@ -40,8 +40,7 @@ export default class Register extends Component {
     });
   };
 
-  onRegisterButtonClick = async () => {
-
+  onRegisterButtonClick = () => {
     this.setState({loadingVisible: true});
     const {username} = this.state;
     const {email} = this.state;
@@ -49,17 +48,17 @@ export default class Register extends Component {
     const {phoneNumber} = this.state;
     const {password} = this.state;
 
-    await Parse.User.logOut();
+    Parse.User.logOut();
     const user = new Parse.User();
     user.set('username', username.toString());
     user.set('email', email.toString());
     user.set('familyName', familyName.toString());
     user.set('phoneNumber', phoneNumber.toString());
     user.set('password', password.toString());
-    const result = await user.signUp();
+    // const result = user.signUp();
 
-    await AsyncStorage.setItem('sessionToken', result.getSessionToken());
-    await AsyncStorage.setItem('userId', result.objectId);
+    // AsyncStorage.setItem('sessionToken', result.sessionToken);
+    // AsyncStorage.setItem('userId', result.objectId);
 
     user.signUp().then((user) => {
       if (typeof document !== 'undefined') {
@@ -67,13 +66,18 @@ export default class Register extends Component {
       }
       console.log('=====User signed up', user);
       this.setState({loadingVisible: true});
+      alert('کاربر با موفقیت ثبت شد');
+      this.props.navigation.replace('Login');
     }).catch(error => {
       if (typeof document !== 'undefined') {
         document.write(`Error while signing up user: ${JSON.stringify(error)}`);
       }
       console.error('Error while signing up user', error);
-      this.setState({loadingVisible: true});
+      this.setState({loadingVisible: false});
       console.error('===Error while signing up user', error.message);
+      if (error.message === 'Account already exists for this username.'){
+        alert('این کاربر قبلا ثبت نام کرده');
+      }
     });
   };
 
@@ -130,6 +134,7 @@ export default class Register extends Component {
 
             <TextInput style={rootStyle._register.inputText}
                        underlineColorAndroid="transparent"
+                       keyboardType={'email-address'}
                        placeholder="لطفا ایمیل خود را وارد کنید"
                        placeholderTextColor='#637581'
                        value={this.state.email}
@@ -141,6 +146,7 @@ export default class Register extends Component {
 
             <TextInput style={rootStyle._register.inputText}
                        underlineColorAndroid="transparent"
+                       keyboardType={'phone-pad'}
                        placeholder="لطفا شماره موبایل خود را وارد کنید"
                        placeholderTextColor='#637581'
                        value={this.state.phoneNumber}

@@ -12,6 +12,9 @@ import rootStyle from '../constants/styles/rootStyle';
 import {Header} from 'react-native-elements';
 import Strings from '../constants/Strings';
 import Drawer from 'react-native-drawer';
+import Loader from '../loader/Loader';
+import Colors from '../constants/AppColors';
+const Parse = require('parse/react-native.js');
 
 export default class Profile extends Component {
 
@@ -19,18 +22,47 @@ export default class Profile extends Component {
     super(props);
     this.openDrawerProfile = this.openDrawerProfile.bind(this);
     this.state = {
-      userName: 'sahand',
-      familyName: 'mahdavi',
-      phoneNumber: '09122222222',
-      email: 'shnd@gmail.com',
-      modalVisible: false,
+      username: '',
+      familyName: '',
+      phoneNumber: '',
+      email: '',
+      userImage: '',
       supportMessage: '',
+      modalVisible: false,
+      loadingVisible: false,
     };
   }
 
   static navigationOptions = {
     headerShown: null,
   };
+
+  componentDidMount() {
+    const user = Parse.User.current();
+    const id = user.id;
+    console.log('=====User Id', id);
+    fetch(`https://class-react.back4app.io/users/${id}`, {
+      method: 'GET',
+      headers: {
+        'X-Parse-Application-Id': 'tRAzuwYGenZLCp5xWxPhNQBtXqIwyRQX5jkygeo6',
+        'X-Parse-REST-API-Key': 'ZLpDXRc2yCUAfbFZRnARrtYoiqOOiKbhOOoUf9pi',
+      },
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({
+          data: responseJson,
+          userImage: responseJson.userImage.url,
+          username: responseJson.username,
+          familyName: responseJson.familyName,
+          phoneNumber: responseJson.phoneNumber,
+          // email: responseJson.email,
+        });
+      }).catch((error) => {
+      console.error(error);
+      this.errorMessage('پیغام سیستم', 'خطا در برقراری ارتباط با سرور');
+    });
+  }
 
   openDrawerProfile() {
     this.drawerProfile.openDrawer();
@@ -42,7 +74,6 @@ export default class Profile extends Component {
 
   // Support Modal
   // Check state
-
   openModal() {
     this.setState({modalVisible: true});
   }
@@ -50,6 +81,54 @@ export default class Profile extends Component {
   closeModal() {
     this.setState({modalVisible: false});
   }
+
+  //Logout
+  onLogoutClick = () => {
+    this.setState({loadingVisible: true});
+    Parse.User.logOut().then(
+      (success) => {
+        console.log('======successfully logged out', success.message);
+        const user = Parse.User.current();
+        console.log('Parse User is now: ', user);  //the same user!!
+        this.setState({loadingVisible: false});
+        //To reload the app
+        DevSettings.reload();
+      },
+      (error) => {
+        console.log('error logging out.');
+        this.setState({loadingVisible: false});
+      });
+  };
+
+  //Support Modal Button
+  sendSupport = () => {
+    if (this.state.supportMessage === '') {
+      alert('لطفا پیام خود را بنویسید!!');
+    } else {
+      this.setState({loadingVisible: true});
+      const data = {
+        'supportMessage': this.state.supportMessage,
+      };
+      fetch('https://class-react.back4app.io/classes/Support', {
+        method: 'POST',
+        headers: {
+          'X-Parse-Application-Id': 'tRAzuwYGenZLCp5xWxPhNQBtXqIwyRQX5jkygeo6',
+          'X-Parse-REST-API-Key': 'ZLpDXRc2yCUAfbFZRnARrtYoiqOOiKbhOOoUf9pi',
+        },
+        body: JSON.stringify(data),
+      }).then((response) => response.json())
+        .then((responseJson) => {
+          console.log(responseJson);
+          this.setState({loadingVisible: false});
+          this.closeModal();
+          alert('پیام شما با موفقیت ثبت شد');
+        }).catch((error) => {
+        console.error(error);
+        this.setState({loadingVisible: false});
+        alert('خطا در برقراری ارتباط با سرور');
+      });
+    }
+  };
 
   renderHeaderLeft = () => {
     return (
@@ -81,6 +160,7 @@ export default class Profile extends Component {
   };
 
   render() {
+    const {loadingVisible} = this.state;
     //Drawer Data
     const drawer = (
       <View style={rootStyle._profile.drawerContainer}>
@@ -102,7 +182,7 @@ export default class Profile extends Component {
 
         <View>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Login')}
+            onPress={this.onLogoutClick}
             activeOpacity={0.9}>
             <Text style={rootStyle._profile.drawerText}>خروج از برنامه</Text>
           </TouchableOpacity>
@@ -110,15 +190,17 @@ export default class Profile extends Component {
       </View>
     );
     return (
+      // tweenHandler={Drawer.tweenPresets.parallax} ===> use if type is not displace
       //https://github.com/root-two/react-native-drawer
       <Drawer
         side="right"
-        type="static"
+        type={'overlay'}
+        open={false}
         content={drawer}
         openDrawerOffset={100}
         tapToClose={true}
-        ref={_drawer => (this.drawerProfile = _drawer)}
-        tweenHandler={Drawer.tweenPresets.parallax}>
+        styles={rootStyle._profile.drawer}
+        ref={_drawer => (this.drawerProfile = _drawer)}>
         <View style={rootStyle._profile.container}>
           <View>
             <Header
@@ -135,14 +217,14 @@ export default class Profile extends Component {
               <View style={rootStyle._profile.userImageContainer}>
                 <Image
                   style={rootStyle._profile.userImage}
-                  source={require('../constants/images/user_image.png')}/>
+                  source={{uri: this.state.userImage}}/>
               </View>
 
               {/*UserName Text Input*/}
               <View style={rootStyle._profile.textInputContainer}>
                 <TextInput style={rootStyle._profile.inputText}
                            underlineColorAndroid="transparent"
-                           value={this.state.userName}
+                           value={this.state.username}
                            onChangeText={(userName) => this.setState({userName})}
                            blurOnSubmit={false}/>
               </View>
@@ -165,14 +247,15 @@ export default class Profile extends Component {
                            blurOnSubmit={false}/>
               </View>
 
-              <View style={rootStyle._profile.textInputContainer}>
-                <TextInput style={rootStyle._profile.inputText}
-                           underlineColorAndroid="transparent"
-                           keyboardType="email-address"
-                           value={this.state.email}
-                           onChangeText={(email) => this.setState({email})}
-                           blurOnSubmit={false}/>
-              </View>
+              {/*Email Text Input*/}
+              {/*<View style={rootStyle._profile.textInputContainer}>*/}
+              {/*  <TextInput style={rootStyle._profile.inputText}*/}
+              {/*             underlineColorAndroid="transparent"*/}
+              {/*             keyboardType="email-address"*/}
+              {/*             value={this.state.email}*/}
+              {/*             onChangeText={(email) => this.setState({email})}*/}
+              {/*             blurOnSubmit={false}/>*/}
+              {/*</View>*/}
 
               {/*Edit Profile Button*/}
               <View style={rootStyle._profile.editProfileBtnContainer}>
@@ -200,7 +283,7 @@ export default class Profile extends Component {
                              placeholderTextColor='#637581'
                              placeholder="لطفا انتقاد یا پیشنهاد خود را وارد کنید"
                              textAlignVertical={'top'}
-                             value={this.state.supportMessage}
+                             value={this.state.message}
                              multiline={true}
                              numberOfLines={10}
                              onChangeText={(supportMessage) => this.setState({supportMessage})}
@@ -211,7 +294,7 @@ export default class Profile extends Component {
                 <View style={rootStyle._profile.modalButtonsSection}>
                   <View style={rootStyle._profile.sendSupportBtnContainer}>
                     <TouchableOpacity
-                      onPress={() => alert('send support')}
+                      onPress={this.sendSupport}
                       activeOpacity={0.8}>
                       <Text style={rootStyle._profile.editProfileButton}>{Strings.sendSupport}</Text>
                     </TouchableOpacity>
@@ -228,9 +311,11 @@ export default class Profile extends Component {
               </View>
             </Modal>
           </View>
+          <Loader
+            animationType="fade"
+            modalVisible={loadingVisible}/>
         </View>
       </Drawer>
-
     );
   }
 }

@@ -182,6 +182,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    //Add this for using maps
+    implementation project(":react-native-maps")
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:0.63.2"  // From node_modules
 

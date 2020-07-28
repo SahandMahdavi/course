@@ -12,8 +12,8 @@ import Strings from '../constants/Strings';
 import rootStyle from '../constants/styles/rootStyle';
 import {Header} from 'react-native-elements';
 import NewProductData from './data/NewProductData';
-import {Parse} from 'parse/react-native';
 import Colors from '../constants/AppColors';
+import Loader from '../loader/Loader';
 
 // npm install parse --save
 
@@ -23,6 +23,7 @@ export default class Home extends Component {
     super(props);
     this.state = {
       data: [],
+      loadingVisible: false,
       FlatListItems: [
         {
           image: 'https://radiokimiya.com/wp-content/uploads/2020/06/gold-gathering-300x170.png',
@@ -52,13 +53,13 @@ export default class Home extends Component {
     headerShown: null,
   };
 
-  componentDidMount() {
-    fetch('https://class-react.back4app.io/classes/NewProduct', {
+  componentDidMount()  {
+    this.setState({loadingVisible: true});
+    fetch('https://class-react.back4app.io/classes/CategoryDetails', {
       method: 'GET',
       headers: {
         'X-Parse-Application-Id': 'tRAzuwYGenZLCp5xWxPhNQBtXqIwyRQX5jkygeo6',
         'X-Parse-REST-API-Key': 'ZLpDXRc2yCUAfbFZRnARrtYoiqOOiKbhOOoUf9pi',
-        'Content-Type': 'application/json',
       },
     }).then((response) => response.json())
       .then((responseJson) => {
@@ -68,10 +69,10 @@ export default class Home extends Component {
           loadingVisible: false,
         });
       }).catch((error) => {
-      console.error(error);
+      console.error(error.message);
       this.setState({loadingVisible: false});
     });
-  }
+  };
 
   renderHeaderText = () => {
     return (
@@ -82,6 +83,7 @@ export default class Home extends Component {
   renderNewProductItem(items) {
     return <NewProductData
       navigation={this.props.navigation}
+      objectId={items.objectId}
       image={items.image}
       title={items.title}
       price={items.price}/>;
@@ -90,6 +92,12 @@ export default class Home extends Component {
   render() {
     const {data} = this.state;
     const {FlatListStaticDta} = this.state;
+    const MEN_SHIRT = 'MEN_SHIRT';
+    const WOMEN_SHOE = 'WOMEN_SHOE';
+    const MEN_SUIT = 'MEN_SUIT';
+    const WOMEN_SUIT = 'WOMEN_SUIT';
+
+    const {loadingVisible} = this.state;
     return (
       <View style={rootStyle._home.container}>
         <View>
@@ -107,7 +115,7 @@ export default class Home extends Component {
             <View>
               <FlatList
                 style={rootStyle._home.flatList}
-                data={this.state.FlatListItems}
+                data={data.slice(0, 5)}
                 horizontal={true}
                 maxToRenderPerBatch={2}
                 renderItem={({item}) => this.renderNewProductItem(item)}
@@ -125,6 +133,7 @@ export default class Home extends Component {
                     {
                       item: {
                         title: 'پیراهن مردانه',
+                        constant: MEN_SHIRT,
                       },
                     },
                   )}
@@ -132,6 +141,7 @@ export default class Home extends Component {
                   style={rootStyle._home.categoryContainer}>
                   <View style={rootStyle._home.categoryContent}>
                     <Image
+                      style={rootStyle._home.image}
                       source={require('../constants/images/shirt.png')}/>
                     <Text style={rootStyle._home.categoryText}>{Strings.menShirt}</Text>
                   </View>
@@ -142,6 +152,7 @@ export default class Home extends Component {
                     {
                       item: {
                         title: 'کفش زنانه',
+                        constant: WOMEN_SHOE,
                       },
                     },
                   )}
@@ -149,7 +160,6 @@ export default class Home extends Component {
                   style={rootStyle._home.categoryContainer}>
                   <View style={rootStyle._home.categoryContent}>
                     <Image
-
                       source={require('../constants/images/womens_shoes.png')}/>
                     <Text style={rootStyle._home.categoryText}>{Strings.womenShoes}</Text>
                   </View>
@@ -162,6 +172,7 @@ export default class Home extends Component {
                     {
                       item: {
                         title: 'کت و شلوار',
+                        constant: MEN_SUIT,
                       },
                     },
                   )}
@@ -179,6 +190,7 @@ export default class Home extends Component {
                     {
                       item: {
                         title: 'کت و دامن',
+                        constant: WOMEN_SUIT,
                       },
                     },
                   )}
@@ -194,6 +206,9 @@ export default class Home extends Component {
             </View>
           </View>
         </ScrollView>
+        <Loader
+          animationType="fade"
+          modalVisible={loadingVisible}/>
       </View>
     );
   }

@@ -8,14 +8,14 @@ import {
 } from 'react-native';
 import styles from '../constants/styles/login';
 import Loader from '../loader/Loader';
-import {Parse} from 'parse/react-native';
+const Parse = require('parse/react-native.js');
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.setState = this.setState.bind(this)
+    this.setState = this.setState.bind(this);
     this.state = {
       email: '',
       password: '',
@@ -61,7 +61,7 @@ export default class Login extends Component {
           </View>
           <TextInput style={styles.inputText}
                      underlineColorAndroid="transparent"
-                     keyboardType="email-address"
+                     keyboardType={'email-address'}
                      placeholder='لطفا ایمیل خود را وارد کنید'
                      placeholderTextColor='#637581'
                      value={this.state.email}
@@ -99,6 +99,7 @@ export default class Login extends Component {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
 
       <Loader
         animationType="fade"

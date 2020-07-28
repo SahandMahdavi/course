@@ -3,7 +3,7 @@ import {
   SafeAreaView,
   Text,
   Image,
-  View,
+  View, StatusBar,
 } from 'react-native';
 import rootStyle from '../constants/styles/rootStyle';
 import Strings from '../constants/Strings';
@@ -17,28 +17,22 @@ export default class Splash extends Component {
   };
 
   componentDidMount() {
-    const userId = AsyncStorage.getItem('userId');
-    setTimeout(() => {
-      // Parse.User.currentAsync().then(user => {
-      //   console.log('=====User', user);
-      //   if (user !== null) {
-      //     this.props.navigation.replace('Main');
-      //   } else {
-      //     this.props.navigation.replace('Login');
-      //   }
-      // });
-
-        if (userId !== '') {
-          this.props.navigation.replace('Login');
-        } else {
-          this.props.navigation.replace('Login');
-        }
-    }, 3000);
+      setTimeout(() => {
+        Parse.User.currentAsync().then(user => {
+          console.log('=====User', user);
+          if (user !== null) {
+            this.props.navigation.replace('Main');
+          } else {
+            this.props.navigation.replace('Login');
+          }
+        });
+      }, 3000);
   };
 
   render() {
     return (
       <SafeAreaView style={rootStyle._splash.container}>
+        <StatusBar hidden={true}/>
         <View>
           <Image style={rootStyle._splash.image}
                  source={require('../constants/images/logo.png')}/>

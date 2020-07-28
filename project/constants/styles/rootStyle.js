@@ -216,7 +216,7 @@ const rootStyles = EstyleSheet.create({
       alignItems: 'center',
     },
     categoryContent: {
-      backgroundColor: '#ffffff',
+      backgroundColor: Colors.whiteColor,
       borderRadius: 8,
       elevation: 3,
       shadowColor: '#000000',
@@ -225,6 +225,9 @@ const rootStyles = EstyleSheet.create({
       overflow: 'hidden',
       padding: 8,
       alignItems: 'center',
+    },
+    image: {
+      aspectRatio: 2 / 3,
     },
     categoryText: {
       width: 85,
@@ -235,29 +238,39 @@ const rootStyles = EstyleSheet.create({
       marginTop: Sizes.marginEight,
     },
   },
-  _newProductDetails:{
+  _newProductDetails: {
     container: {
+      flex: .5,
       backgroundColor: Colors.whiteColor,
       borderColor: Colors.whiteColor,
       borderWidth: 1,
       borderRadius: 8,
       elevation: 3,
       shadowColor: Colors.shadowColor,
-      shadowOffset: { width: 0, height: 1 },
+      shadowOffset: {width: 0, height: 1},
       shadowOpacity: 0.01,
       overflow: 'hidden',
-      marginTop: Sizes.marginDefault,
+      marginTop: Sizes.marginEight,
       marginBottom: Sizes.marginEight,
-      marginRight: Sizes.marginDefault,
+      marginRight: Sizes.marginEight,
       marginLeft: Sizes.marginEight,
     },
     imageContainer: {
       flex: 1,
-      marginTop: 8,
+      marginTop: Sizes.marginEight,
+      marginRight: Sizes.marginEight,
+      marginLeft: Sizes.marginEight,
       alignItems: 'center',
     },
+    image: {
+      width: 100,
+      height: 80,
+      overflow: 'hidden',
+      borderRadius: 8,
+      aspectRatio: 3/2,
+    },
     titleText: {
-      fontSize: Sizes.textSizeFourteen,
+      fontSize: Sizes.textSizeTwelve,
       fontFamily: Strings.fontFamily,
       color: Colors.darkGrey,
       textAlign: 'right',
@@ -266,7 +279,7 @@ const rootStyles = EstyleSheet.create({
       marginLeft: Sizes.marginDefault,
     },
     priceText: {
-      fontSize: Sizes.textSizeFourteen,
+      fontSize: Sizes.textSizeTwelve,
       fontFamily: Strings.fontFamily,
       color: Colors.lightGrey,
       textAlign: 'right',
@@ -286,17 +299,17 @@ const rootStyles = EstyleSheet.create({
       fontSize: Sizes.textSizeEighteen,
       elevation: 3,
       shadowColor: Colors.shadowColor,
-      shadowOffset: { width: 0, height: 1 },
+      shadowOffset: {width: 0, height: 1},
       shadowOpacity: 0.01,
       overflow: 'hidden',
-      fontFamily: Strings.fontFamily
+      fontFamily: Strings.fontFamily,
     },
     detailsButtonText: {
       fontSize: Sizes.textSizeTwelve,
       fontFamily: Strings.fontFamily,
       color: Colors.whiteColor,
       textAlign: 'center',
-    }
+    },
   },
   _productDetails: {
     container: {
@@ -318,7 +331,7 @@ const rootStyles = EstyleSheet.create({
       overflow: 'hidden',
     },
     backIcon: {
-      tintColor: Colors.darkGrey
+      tintColor: Colors.darkGrey,
     },
     detailsContainer: {
       backgroundColor: Colors.whiteColor,
@@ -328,7 +341,7 @@ const rootStyles = EstyleSheet.create({
       marginLeft: Sizes.marginDefault,
       elevation: 3,
       shadowColor: Colors.shadowColor,
-      shadowOffset: { width: 0, height: 1 },
+      shadowOffset: {width: 0, height: 1},
       shadowOpacity: 0.01,
       overflow: 'hidden',
       borderRadius: 8,
@@ -338,7 +351,12 @@ const rootStyles = EstyleSheet.create({
       marginRight: Sizes.marginEight,
       marginLeft: Sizes.marginEight,
       alignItems: 'center',
-      backgroundColor: 'red'
+    },
+    image: {
+      width: '100%',
+      aspectRatio: 3/2,
+      borderRadius: 8,
+      overflow: 'hidden'
     },
     titleText: {
       fontSize: Sizes.textSizeFourteen,
@@ -370,17 +388,17 @@ const rootStyles = EstyleSheet.create({
       fontSize: Sizes.textSizeEighteen,
       elevation: 3,
       shadowColor: Colors.shadowColor,
-      shadowOffset: { width: 0, height: 1 },
+      shadowOffset: {width: 0, height: 1},
       shadowOpacity: 0.01,
       overflow: 'hidden',
-      fontFamily: Strings.fontFamily
+      fontFamily: Strings.fontFamily,
     },
     detailsButtonText: {
       fontSize: Sizes.textSizeTwelve,
       fontFamily: Strings.fontFamily,
       color: Colors.whiteColor,
       textAlign: 'center',
-    }
+    },
   },
   _categoryDetails: {
     container: {
@@ -406,7 +424,7 @@ const rootStyles = EstyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: Colors.whiteColor,
-      borderWidth:1,
+      borderWidth: 1,
       borderColor: Colors.lightGrey,
       borderRadius: 8,
       marginTop: Sizes.marginThirtyTwo,
@@ -429,8 +447,14 @@ const rootStyles = EstyleSheet.create({
       textAlign: 'right',
     },
     backIcon: {
-      tintColor: Colors.darkGrey
-    }
+      tintColor: Colors.darkGrey,
+    },
+    searchableFlatList: {
+      flex: 1,
+      flexDirection: 'column',
+      marginRight: 8,
+      marginLeft: 8,
+    },
   },
   _profile: {
     headerTitle: {
@@ -496,10 +520,16 @@ const rootStyles = EstyleSheet.create({
       overflow: 'hidden',
       fontFamily: Strings.fontFamily,
     },
+    drawer: {
+      elevation: 3,
+      shadowColor: Colors.shadowColor,
+      shadowOffset: {width: 0, height: 1},
+      shadowOpacity: 0.01,
+      overflow: 'hidden',
+    },
     drawerContainer: {
       flex: 1,
       backgroundColor: Colors.whiteColor,
-      width: 300,
       paddingTop: Sizes.paddingHundred,
     },
     drawerText: {
@@ -539,7 +569,7 @@ const rootStyles = EstyleSheet.create({
     modalButtonsSection: {
       position: 'absolute',
       width: '100%',
-        bottom: Sizes.marginThirtyTwo,
+      bottom: Sizes.marginThirtyTwo,
     },
     sendSupportBtnContainer: {
       marginTop: Sizes.marginThirtyTwo,
@@ -571,9 +601,13 @@ const rootStyles = EstyleSheet.create({
       flex: 1,
       backgroundColor: Colors.whiteColor,
     },
+    flatList: {
+      marginBottom: 8,
+      marginTop: 8,
+    },
     backIcon: {
-      tintColor: Colors.darkGrey
-    }
+      tintColor: Colors.darkGrey,
+    },
   },
 });
 
