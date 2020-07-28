@@ -4,7 +4,6 @@ import {
   View,
   Dimensions,
   Image,
-  Text, TouchableOpacity,
 } from 'react-native';
 import MapView, {Marker, Polyline} from 'react-native-maps';
 
@@ -14,15 +13,6 @@ const LATITUDE = 35.7193493;
 const LONGITUDE = 51.3072108;
 const LATITUDE_DELTA = 0.1;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-const COLORS = [
-  '#7F0000',
-  '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
-  '#B24112',
-  '#E5845C',
-  '#238C23',
-  '#7F0000',
-];
 
 const customStyle = [
   {
